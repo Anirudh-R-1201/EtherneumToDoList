@@ -92,6 +92,13 @@ App = {
       }
   },
 
+  createTask: ()=>{
+    App.setLoading(true)
+    const content = $('#newTask').val()
+    App.todoList.createTask(content)
+    window.location.reload()
+  },
+
   setLoading: (boolean) =>{
     App.loading = boolean
     var loader = $('#loader')
