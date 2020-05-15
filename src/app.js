@@ -80,7 +80,7 @@ App = {
 
           const $newTaskTemplate = $taskTemplate.clone()
           $newTaskTemplate.find('.content').html(taskContent)
-          $newTaskTemplate.find('input').prop('name',taskId).prop('checked',taskCompleted)//.on('click', App.toggleCompleted)
+          $newTaskTemplate.find('input').prop('name',taskId).prop('checked',taskCompleted).on('click', App.toggleCompleted)
         
           if(taskCompleted){
               $('#completedTaskList').append($newTaskTemplate)
@@ -92,11 +92,18 @@ App = {
       }
   },
 
-  createTask: ()=>{
+  createTask: async()=>{
     App.setLoading(true)
     const content = $('#newTask').val()
-    App.todoList.createTask(content)
+    await App.todoList.createTask(content)
     window.location.reload()
+  },
+
+  toggleCompleted: async (e)=>{
+      App.setLoading(true)
+      const taskId = e.target.name
+      await App.todoList.toggleCompleted(taskId)
+      window.location.reload()
   },
 
   setLoading: (boolean) =>{
